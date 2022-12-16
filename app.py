@@ -94,7 +94,7 @@ if selected == "Data Visualization":
         period = st.selectbox("Select Period:", get_all_periods())
         submitted = st.form_submit_button("Plot Period")
         if submitted:
-            # Get data from database
+            #Get data from database
             period_data = db.get_period(period)
             comment = period_data.get("comment")
             incomes = period_data.get("incomes")

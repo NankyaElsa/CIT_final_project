@@ -4,16 +4,16 @@ import os
 from dotenv import load_dotenv
 
 # load the environment variables
-load_dotenv(".env.txt")
+#load_dotenv(".env.txt")
 
 
-DETA_KEY = os.getenv("DETA_KEY")
+DETA_KEY = "a0i75qej_BD6xWQsspT5JCZtSNHbcnmfYEDxDuByi"      #os.getenv("DETA_KEY")
 
 #initialize with a project key
 deta = Deta(DETA_KEY)
 
 # Create/connect a database
-db = deta.Base("budget_management_reports")
+db =deta.Base("Personal_budget_report")
 
 def insert_period(period, incomes, expenses, comment):
     """Returns the report on a successful creation, otherwise raises an error"""
