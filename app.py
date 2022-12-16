@@ -1,4 +1,4 @@
-#protly is used to draw the stcky chart
+#plotly is used to draw the stcky chart
 
 import streamlit as st
 from streamlit_option_menu import option_menu
@@ -14,10 +14,10 @@ import database as db  # Local import
 
 incomes = ["Salary", "Blog", "Other Income"]
 expenses = ["Rent", "Utilities", "Groceries","Car", "Other Expenses", "Saving"]
-currency = "USD"
+currency = "UGX"
 page_title = "Income and Expense Tracker"
-page_icon = ":moneybag:"
-layout = "centered"
+page_icon = ":moneybag:"  ## emojis: https://www.webfx.com/tools/emoji-cheat-sheet/
+layout = "wide"
 
 st.set_page_config(page_title = page_title, page_icon = page_icon, layout=layout)
 st.title(page_title + " " + page_icon)  
@@ -39,7 +39,7 @@ selected = option_menu (
     icons=["pen", "bar-chart-fill"],  #icons https://icons.getbootstrap.com/
     orientation="horizontal"
     )
-
+# for database
 def get_all_periods():
     items = db.fetch_all_periods()
     periods = [item["key"] for item in items]
@@ -48,7 +48,7 @@ def get_all_periods():
 
 #drop down values for selecting the period
 
-years = [datetime.today().year, datetime.today().year + 1]
+years = [datetime.today().year, datetime.today().year + 1, datetime.today().year + 2, datetime.today().year + 3]
 months = list(calendar.month_name[1:])
 
 #input and save periods
@@ -76,7 +76,7 @@ if selected == "Data Entry":
         #creating a submit button
         submitted = st.form_submit_button("Save Data")
         if submitted:
-            #capture the users input and store it in a nosql database
+            #capture the users input and store it in a nosql(deta) database
             period = str(st.session_state["year"]) + "_" + str(st.session_state["month"])
             incomes = {income: st.session_state[income] for income in incomes}
             expenses = {expense: st.session_state[expense] for expense in expenses}
@@ -85,7 +85,7 @@ if selected == "Data Entry":
             db.insert_period(period, incomes, expenses, comment)
             st.success(f"Data Saved!")
 
-#plot periods using stinky charts
+#plot periods using sankey charts
 if selected == "Data Visualization":
     st.header("Data Visualization")
     with st.form("saved_periods"):
